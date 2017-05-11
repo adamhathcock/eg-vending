@@ -20,7 +20,7 @@ namespace Vending.UI
         public void Start()
         {
             Console.WriteLine("Starting Vending Machine...");
-            vendingSession = ServiceProviderServiceExtensions.GetRequiredService<IVendingSession>(serviceProvider);
+            vendingSession = serviceProvider.GetRequiredService<IVendingSession>();
         }
 
         public void Run()
