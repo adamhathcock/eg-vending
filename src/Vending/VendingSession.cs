@@ -55,5 +55,25 @@ namespace Vending
             logger.LogWarning($"Could not purchase {product}");
             return false;
         }
+
+        public IEnumerable<Coin> MakeChange()
+        {
+            decimal returnedTotal = 0m;
+
+            decimal TotalLeft() => GetRemainingValue() - returnedTotal;
+
+            while (GetRemainingValue() - returnedTotal > 0)
+            {
+                foreach (var coin in Coin.Coins)
+                {
+                    if (coin.Value <= TotalLeft())
+                    {
+                        returnedTotal += coin.Value;
+                        yield return coin;
+                        break;
+                    }
+                }
+            }
+        }
     }
 }

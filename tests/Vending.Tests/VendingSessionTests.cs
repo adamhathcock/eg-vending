@@ -1,5 +1,5 @@
 ﻿using System;
-using Castle.Core.Logging;
+using System.Linq;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
@@ -91,6 +91,34 @@ namespace Vending.Tests
 
             Assert.False(vendingSession.TryPurchase(Product.Cola));
             Assert.Equal(0.05m, vendingSession.GetRemainingValue());
+        }
+
+
+        [Fact]
+        public void ExpectSession_Candy_And_Change()
+        {
+            var token50 = new Token(0, 0);
+            var token20 = new Token(0, 0);
+            var token50_2 = new Token(0, 0);
+
+            coinRecognizer.Setup(x => x.Recognize(token50)).Returns(Coin.Fifty);
+            coinRecognizer.Setup(x => x.Recognize(token50_2)).Returns(Coin.Fifty);
+            coinRecognizer.Setup(x => x.Recognize(token20)).Returns(Coin.Twenty);
+
+            var vendingSession = new VendingSession(coinRecognizer.Object, logger.Object);
+            Assert.True(vendingSession.TryAcceptToken(token50));
+            Assert.True(vendingSession.TryAcceptToken(token20));
+            Assert.True(vendingSession.TryAcceptToken(token50_2));
+            Assert.Equal(1.2m, vendingSession.GetCurrentCoinValue());
+
+            Assert.True(vendingSession.TryPurchase(Product.Candy));
+            Assert.Equal(0.55m, vendingSession.GetRemainingValue());
+
+            var coins = vendingSession.MakeChange().ToList();
+
+            Assert.Equal(2, coins.Count);
+            Assert.Equal(Coin.Fifty, coins[0]);
+            Assert.Equal(Coin.Five, coins[1]);
         }
     }
 }

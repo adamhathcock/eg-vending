@@ -4,16 +4,10 @@ namespace Vending
 {
     public class CoinRecognizer : ICoinRecognizer
     {
-        public static readonly List<Coin> Coins = new List<Coin>()
-        {
-            Coin.Fifty,
-            Coin.Twenty,
-            Coin.Ten
-        };
 
         public Coin Recognize(Token token)
         {
-            foreach (var coin in Coins)
+            foreach (var coin in Coin.Coins)
             {
                 if ((token.Weight <= coin.MaxWeight)
                     && (token.Weight >= coin.MinWeight)
