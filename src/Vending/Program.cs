@@ -24,7 +24,8 @@ namespace Vending
             var config = new LoggerConfiguration();
             config.MinimumLevel.Debug();
             config.WriteTo.LiterateConsole();
-            logging.AddSerilog(config.CreateLogger());
+            //uncomment to enable logging
+            //logging.AddSerilog(config.CreateLogger());
 
             while (true)
             {
