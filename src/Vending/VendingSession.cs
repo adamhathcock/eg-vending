@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 
@@ -7,6 +8,8 @@ namespace Vending
     public class VendingSession : IVendingSession
     {
         private readonly Dictionary<Token, Coin> currentTokens = new Dictionary<Token, Coin>();
+
+        private readonly List<Product> purchasedItems = new List<Product>();
 
         private readonly ICoinRecognizer coinRecognizer;
         private readonly ILogger logger;
@@ -27,13 +30,30 @@ namespace Vending
                 logger.LogDebug($"Current Value {GetCurrentCoinValue()}");
                 return true;
             }
-            logger.LogDebug($"unmatched token {token}");
+            logger.LogWarning($"unmatched token {token}");
             return false;
         }
 
-        public double GetCurrentCoinValue()
+        public decimal GetCurrentCoinValue()
         {
-            return currentTokens.Values.Aggregate<Coin, double>(0.0, (x, c) => x + c.Value);
+            return Math.Round(currentTokens.Values.Aggregate(0.0m, (x, c) => x + c.Value), 2);
+        }
+        
+        public decimal GetRemainingValue()
+        {
+            return Math.Round(GetCurrentCoinValue() - purchasedItems.Aggregate(0.0m, (x, c) => x + c.Price), 2);
+        }
+
+        public bool TryPurchase(Product product)
+        {
+            if (GetRemainingValue() - product.Price > 0)
+            {
+                logger.LogDebug($"Purchasing {product}");
+                purchasedItems.Add(product);
+                return true;
+            }
+            logger.LogWarning($"Could not purchase {product}");
+            return false;
         }
     }
 }

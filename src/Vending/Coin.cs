@@ -2,12 +2,12 @@
 {
     public class Coin
     {
-        public static readonly Coin Fifty = new Coin(0.6, 0.5, 15, 14.5, 0.5);
-        public static readonly Coin Twenty = new Coin(0.6, 0.5, 5, 4.5, 0.2);
-        public static readonly Coin Ten = new Coin(0.2, 0.1, 10, 9, 0.1);
-        public static readonly Coin Five = new Coin(0.2, 0.1, 5, 4, 0.05);
+        public static readonly Coin Fifty = new Coin(0.6m, 0.5m, 15, 14.5m, 0.5m);
+        public static readonly Coin Twenty = new Coin(0.6m, 0.5m, 5, 4.5m, 0.2m);
+        public static readonly Coin Ten = new Coin(0.2m, 0.1m, 10, 9, 0.1m);
+        public static readonly Coin Five = new Coin(0.2m, 0.1m, 5, 4, 0.05m);
 
-        public Coin(double maxWeight, double minWeight, double maxDiameter, double minDiameter, double value)
+        public Coin(decimal maxWeight, decimal minWeight, decimal maxDiameter, decimal minDiameter, decimal value)
         {
             MaxWeight = maxWeight;
             MinWeight = minWeight;
@@ -16,12 +16,12 @@
             Value = value;
         }
 
-        public double MaxWeight { get; }
-        public double MinWeight { get; }
-        public double MaxDiameter { get; }
-        public double MinDiameter { get; }
+        public decimal MaxWeight { get; }
+        public decimal MinWeight { get; }
+        public decimal MaxDiameter { get; }
+        public decimal MinDiameter { get; }
 
-        public double Value { get; }
+        public decimal Value { get; }
 
         public override string ToString()
         {

@@ -2,15 +2,15 @@ namespace Vending
 {
     public class Token
     {
-        public Token(double weight, double diameter)
+        public Token(decimal weight, decimal diameter)
         {
             Weight = weight;
             Diameter = diameter;
         }
 
 
-        public double Weight { get; set; }
-        public double Diameter { get; set; }
+        public decimal Weight { get; set; }
+        public decimal Diameter { get; set; }
 
         public override string ToString()
         {

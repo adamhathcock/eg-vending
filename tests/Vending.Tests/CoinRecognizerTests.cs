@@ -9,7 +9,7 @@ namespace Vending.Tests
         [InlineData(0.6, 15, true)]
         [InlineData(0.6, 5, true)]
         [InlineData(0.1, 5, false)]
-        public void SingleTokenTests(double weight, double diameter, bool success)
+        public void SingleTokenTests(decimal weight, decimal diameter, bool success)
         {
             var recognizer = new CoinRecognizer();
             Assert.Equal(success, recognizer.Recognize(new Token(weight, diameter)) != null);

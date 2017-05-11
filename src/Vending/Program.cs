@@ -25,9 +25,9 @@ namespace Vending
 
             var vendingSession = serviceProvider.GetRequiredService<IVendingSession>();
 
-            vendingSession.TryAcceptToken(new Token(0.6, 15));
-            vendingSession.TryAcceptToken(new Token(0.6, 5));
-            vendingSession.TryAcceptToken(new Token(0.1, 5));
+            vendingSession.TryAcceptToken(new Token(0.6m, 15));
+            vendingSession.TryAcceptToken(new Token(0.6m, 5));
+            vendingSession.TryAcceptToken(new Token(0.1m, 5));
 
 
             Console.ReadLine();
