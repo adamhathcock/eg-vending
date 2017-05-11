@@ -37,7 +37,7 @@ namespace Vending
 
         public override string ToString()
         {
-            return $"Coin Value {Value}";
+            return $"Coin Value {Value} -- Weight {MinWeight} to {MaxWeight} -- Diameter {MinDiameter} to {MaxDiameter}";
         }
     }
 }

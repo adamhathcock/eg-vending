@@ -29,32 +29,58 @@ namespace Vending
                 Console.WriteLine("Press [i] to insert coins.");
                 Console.WriteLine("Press [p] to view/purchase a product.");
                 Console.WriteLine("Press [c] to cancel.");
+                Console.WriteLine("---> Secret! - Press [o] to coin dimensions.");
 
                 var key = Console.ReadKey().Key;
                 Console.WriteLine();
                 switch (key)
                 {
                     case ConsoleKey.C:
-                        foreach (var coin in vendingSession.MakeChange())
-                        {
-                            Console.WriteLine($"Refunding {coin}");
-                        }
+                        Refund();
                         return;
                     case ConsoleKey.I:
-                        InsertCoin();
+                        InsertCoins();
+                        break;
+                    case ConsoleKey.O:
+                        Coins();
                         break;
                     case ConsoleKey.P:
-                        ViewProducts();
+                        if (ViewProducts())
+                        {
+                            Refund();
+                            return;
+                        }
                         break;
                 }
             }
         }
 
+        public void Coins()
+        {
+            foreach (var coin in Coin.Coins)
+            {
+                Console.WriteLine(coin);
+            }
+        }
 
-        public void InsertCoin()
+        public void Refund()
+        {
+            foreach (var coin in vendingSession.MakeChange())
+            {
+                Console.WriteLine($"---> Refunding {coin}");
+            }
+            Console.WriteLine("THANK YOU");
+        }
+
+
+        public void InsertCoins()
         {
             while (true)
             {
+                Console.WriteLine("INSERT COINS");
+                Console.WriteLine();
+                Console.WriteLine($"Current Money: {vendingSession.GetRemainingValue()}");
+                Console.WriteLine();
                 Console.WriteLine("Enter a value for the Coin Weight...");
                 var weight = EnterDecimal();
                 if (weight == null)
@@ -69,10 +95,11 @@ namespace Vending
                 }
                 if (vendingSession.TryAcceptToken(new Token(weight.Value, diameter.Value)))
                 {
-                    return;
+                    continue;
                 }
 
                 Console.WriteLine("Coin was not accepted.  Try again.");
+                Console.WriteLine();
             }
         }
 
@@ -95,7 +122,7 @@ namespace Vending
             }
         }
 
-        public void ViewProducts()
+        public bool ViewProducts()
         {
             while (true)
             {
@@ -109,7 +136,7 @@ namespace Vending
                 Console.WriteLine();
                 if (key == ConsoleKey.C)
                 {
-                    return;
+                    return false;
                 }
                 var k = (int)key;
                 k -= 48; //convert to 0 index;
@@ -118,16 +145,16 @@ namespace Vending
                     if (vendingSession.TryPurchase(Product.Products[k]))
                     {
                         Console.WriteLine($"Purchased {Product.Products[k]}");
+                        Console.WriteLine();
+                        return true;
                     }
-                    else
-                    {
-                        Console.WriteLine($"Not enough money entered.");
-                    }
+                    Console.WriteLine($"Not enough money entered.");
                 }
                 else
                 {
                     Console.WriteLine("Bad selection, try again.");
                 }
+                Console.WriteLine();
             }
         }
         

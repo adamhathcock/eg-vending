@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Scrutor;
 using Serilog;
@@ -27,6 +28,9 @@ namespace Vending
             {
                 var vendingMachine = serviceProvider.GetRequiredService<VendingMachine>();
                 vendingMachine.Run();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
             }
         }
     }
