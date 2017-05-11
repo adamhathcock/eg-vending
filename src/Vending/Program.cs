@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Scrutor;
 using Serilog;
@@ -14,6 +13,7 @@ namespace Vending
             serviceCollection.AddLogging();
 
             serviceCollection.Scan(x => x.FromAssemblyOf<VendingSession>().AddClasses().AsMatchingInterface());
+            serviceCollection.AddTransient<VendingMachine>();
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
             var logging = serviceProvider.GetRequiredService<ILoggerFactory>();
@@ -23,14 +23,11 @@ namespace Vending
             config.WriteTo.LiterateConsole();
             logging.AddSerilog(config.CreateLogger());
 
-            var vendingSession = serviceProvider.GetRequiredService<IVendingSession>();
-
-            vendingSession.TryAcceptToken(new Token(0.6m, 15));
-            vendingSession.TryAcceptToken(new Token(0.6m, 5));
-            vendingSession.TryAcceptToken(new Token(0.1m, 5));
-
-
-            Console.ReadLine();
+            while (true)
+            {
+                var vendingMachine = serviceProvider.GetRequiredService<VendingMachine>();
+                vendingMachine.Run();
+            }
         }
     }
 }
