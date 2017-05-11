@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using Vending.Domain;
 
-namespace Vending
+namespace Vending.Features.Vending
 {
     public interface IVendingSession
     {

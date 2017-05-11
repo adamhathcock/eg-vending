@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Vending
+namespace Vending.Domain
 {
     public class Coin
     {

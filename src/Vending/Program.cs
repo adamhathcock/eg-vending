@@ -3,6 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Scrutor;
 using Serilog;
+using Vending.Features.Vending;
+using Vending.UI;
 
 namespace Vending
 {

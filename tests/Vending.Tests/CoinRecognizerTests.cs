@@ -1,4 +1,6 @@
 ﻿using System;
+using Vending.Domain;
+using Vending.Features.Vending;
 using Xunit;
 
 namespace Vending.Tests

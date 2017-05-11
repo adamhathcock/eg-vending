@@ -1,4 +1,4 @@
-namespace Vending
+namespace Vending.Domain
 {
     public class Token
     {

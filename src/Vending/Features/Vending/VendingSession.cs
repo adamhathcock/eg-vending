@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Logging;
+using Vending.Domain;
 
-namespace Vending
+namespace Vending.Features.Vending
 {
     public class VendingSession : IVendingSession
     {

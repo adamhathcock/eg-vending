@@ -2,6 +2,8 @@
 using System.Linq;
 using Microsoft.Extensions.Logging;
 using Moq;
+using Vending.Domain;
+using Vending.Features.Vending;
 using Xunit;
 
 namespace Vending.Tests

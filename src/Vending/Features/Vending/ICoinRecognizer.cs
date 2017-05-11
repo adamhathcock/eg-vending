@@ -1,4 +1,6 @@
-﻿namespace Vending
+﻿using Vending.Domain;
+
+namespace Vending.Features.Vending
 {
     public interface ICoinRecognizer
     {

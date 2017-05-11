@@ -1,7 +1,9 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
+using Vending.Domain;
+using Vending.Features.Vending;
 
-namespace Vending
+namespace Vending.UI
 {
     public class VendingMachine
     {
